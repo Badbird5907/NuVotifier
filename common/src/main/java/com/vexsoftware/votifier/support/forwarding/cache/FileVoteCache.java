@@ -77,7 +77,7 @@ public class FileVoteCache extends MemoryVoteCache {
         JsonObject servers = object.getAsJsonObject("servers");
 
         for (String player : keySet(players)) {
-            playerVoteCache.put(player, readVotes(players.getAsJsonArray(player)));
+            playerVoteCache.put(player.toLowerCase(), readVotes(players.getAsJsonArray(player)));
         }
 
         for (String server : keySet(servers)) {
