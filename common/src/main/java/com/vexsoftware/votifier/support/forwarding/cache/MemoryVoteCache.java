@@ -61,7 +61,7 @@ public class MemoryVoteCache implements VoteCache {
         if (player == null) throw new NullPointerException();
         cacheLock.lock();
         try {
-            playerVoteCache.computeIfAbsent(player, k -> new HashSet<>()).add(new VoteWithRecordedTimestamp(v));
+            playerVoteCache.computeIfAbsent(player.toLowerCase(), k -> new HashSet<>()).add(new VoteWithRecordedTimestamp(v));
         } finally {
             cacheLock.unlock();
         }
@@ -72,7 +72,7 @@ public class MemoryVoteCache implements VoteCache {
         if (player == null) throw new NullPointerException();
         cacheLock.lock();
         try {
-            Collection<VoteWithRecordedTimestamp> playerVotes = playerVoteCache.remove(player);
+            Collection<VoteWithRecordedTimestamp> playerVotes = playerVoteCache.remove(player.toLowerCase());
             if (playerVotes != null) {
                 return new HashSet<>(playerVotes);
             } else {
